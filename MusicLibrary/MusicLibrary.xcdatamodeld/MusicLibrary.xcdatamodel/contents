@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="3401" systemVersion="13A3017" minimumToolsVersion="Xcode 4.3" macOSVersion="Automatic" iOSVersion="Automatic">
+    <entity name="VFEAlbum" representedClassName="VFEAlbum" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="year" optional="YES" attributeType="Date" syncable="YES"/>
+        <relationship name="artist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VFEArtist" inverseName="albums" inverseEntity="VFEArtist" syncable="YES"/>
+        <relationship name="songs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VFESong" inverseName="album" inverseEntity="VFESong" syncable="YES"/>
+    </entity>
+    <entity name="VFEArtist" representedClassName="VFEArtist" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="albums" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VFEAlbum" inverseName="artist" inverseEntity="VFEAlbum" syncable="YES"/>
+        <relationship name="songs" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="VFESong" inverseName="artist" inverseEntity="VFESong" syncable="YES"/>
+    </entity>
+    <entity name="VFESong" representedClassName="VFESong" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="album" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VFEAlbum" inverseName="songs" inverseEntity="VFEAlbum" syncable="YES"/>
+        <relationship name="artist" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="VFEArtist" inverseName="songs" inverseEntity="VFEArtist" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="VFESong" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="VFEAlbum" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="VFEArtist" positionX="0" positionY="0" width="0" height="0"/>
+    </elements>
+</model>
