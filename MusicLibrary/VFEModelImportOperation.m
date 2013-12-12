@@ -12,7 +12,7 @@
 #import "NSString+CSV.h"
 
 static const NSInteger ImportBatchSize = 500;
-static const NSInteger ImportProgressGranularity = 100;
+static const NSInteger ImportProgressGranularity = 250;
 
 @interface VFEModelImportOperation ()
 
@@ -34,33 +34,47 @@ static const NSInteger ImportProgressGranularity = 100;
         _fileName = [fileName copy];
         _progressCallback = [progressCallback copy];
         _modelClass = modelClass;
-        _context = [[VFEModelManager sharedManager] createPrivateContext];
     }
     return self;
 }
 
 - (void)main
 {
-    [self.context performBlockAndWait:^{
+    // Create the local context in the 'main' method to create it on the correct thread
+//    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
+    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    self.context.parentContext = [VFEModelManager sharedManager].rootContext;
+    self.context.undoManager = nil;
+
+    [self.context performBlock:^{
         [self import];
     }];
 }
 
 - (void)saveContext
 {
-    NSError *error;
-    [self.context save:&error];
-    if (error) {
-        NSLog(@"Unable to save context : %@", error);
-    }
+    [self.context performBlockAndWait:^{
+        NSError *error;
+        [self.context save:&error];
+        if (error) {
+            NSLog(@"Unable to save context : %@", error);
+        }
+        [self.context reset];
+    }];
+    [[VFEModelManager sharedManager] saveRootContext];
 }
 
 - (void)import
 {
+    NSDate *beginDate = [NSDate date];
+
     NSString *fileContents = [NSString stringWithContentsOfFile:self.fileName encoding:NSUTF8StringEncoding error:NULL];
     NSArray *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     NSInteger count = lines.count;
-    NSInteger progressGranularity = count/ImportProgressGranularity;
+    NSInteger progressGranularity = ImportProgressGranularity;
+    if (count > ImportProgressGranularity) {
+        progressGranularity = count / ImportProgressGranularity;
+    }
     __block NSInteger idx = -1;
     [fileContents enumerateLinesUsingBlock:^(NSString *line, BOOL *shouldStop) {
         idx++;
@@ -87,6 +101,8 @@ static const NSInteger ImportProgressGranularity = 100;
     }];
     self.progressCallback(1);
     [self saveContext];
+
+    NSLog(@"Imported done in %f s", ABS([beginDate timeIntervalSinceNow]));
 }
 
 @end

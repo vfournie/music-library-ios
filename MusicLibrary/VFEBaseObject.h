@@ -7,8 +7,9 @@
 //
 
 #import <CoreData/CoreData.h>
+#import "VFEImportableObject.h"
 
-@interface VFEBaseObject : NSManagedObject
+@interface VFEBaseObject : NSManagedObject <VFEImportableObject>
 
 + (NSString *)entityName;
 + (instancetype)insertNewObjectInManagedObjectContext:(NSManagedObjectContext *)moc;

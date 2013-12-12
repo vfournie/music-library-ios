@@ -16,10 +16,16 @@
     return @"";
 }
 
-+ (instancetype)insertNewObjectInManagedObjectContext:(NSManagedObjectContext *)moc;
++ (instancetype)insertNewObjectInManagedObjectContext:(NSManagedObjectContext *)moc
 {
     return [NSEntityDescription insertNewObjectForEntityForName:[self entityName]
                                          inManagedObjectContext:moc];
+}
+
++ (void)importCSVComponents:(NSArray *)components intoContext:(NSManagedObjectContext *)moc
+{
+    // Must overwrite in subclasses
+    NSLog(@"Importing...");
 }
 
 @end

@@ -11,10 +11,12 @@
 
 @interface VFEModelManager : NSObject
 
+@property (nonatomic, strong, readonly) NSManagedObjectContext *rootContext;
 @property (nonatomic, strong, readonly) NSManagedObjectContext *mainContext;
 
 + (instancetype)sharedManager;
 
-- (NSManagedObjectContext *)createPrivateContext;
+- (void)saveRootContext;
+- (void)deleteDB;
 
 @end

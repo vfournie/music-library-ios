@@ -14,7 +14,8 @@
 @property (nonatomic, strong) NSURL *storeURL;
 @property (nonatomic, strong) NSPersistentStoreCoordinator *storeCoordinator;
 @property (nonatomic, strong) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, strong) NSManagedObjectContext *mainContext;
+@property (nonatomic, strong, readwrite) NSManagedObjectContext *rootContext;
+@property (nonatomic, strong, readwrite) NSManagedObjectContext *mainContext;
 
 @end
 
@@ -50,17 +51,45 @@
 
 - (void)dealloc
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:NSManagedObjectContextDidSaveNotification
-                                                  object:nil];
 }
 
-- (NSManagedObjectContext *)createPrivateContext
+- (void)saveRootContext
 {
-    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    context.persistentStoreCoordinator = self.storeCoordinator;
-    context.undoManager = nil;
-    return context;
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(rootContextChanged:)
+//                                                 name:NSManagedObjectContextDidSaveNotification
+//                                               object:self.rootContext];
+    [self.rootContext performBlock:^{
+        NSError *error = nil;
+
+        BOOL success = [self.rootContext save:&error];
+        if (success == NO) {
+            NSLog(@"Unable to save the root context : %@", error);
+        }
+
+//        [[NSNotificationCenter defaultCenter] removeObserver:self
+//                                                        name:NSManagedObjectContextDidSaveNotification
+//                                                      object:self.rootContext];
+        
+    }];
+}
+
+- (void)deleteDB
+{
+    [self.mainContext performBlockAndWait:^{
+        [self.mainContext reset];
+    }];
+    [self.rootContext performBlockAndWait:^{
+        [self.rootContext reset];
+    }];
+
+    // effectively delete the database
+    NSError *error;
+    if(![[NSFileManager defaultManager] removeItemAtPath:self.storeURL.path error:&error]) {
+        NSLog(@"Unable to delete the store : %@", error);
+    }
+
+    [self initializeCoreDataStack];
 }
 
 #pragma mark - CoreData stack
@@ -81,22 +110,22 @@
         NSLog(@"error: %@", error);
     }
 
-    self.mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
-    self.mainContext.persistentStoreCoordinator = self.storeCoordinator;
-    self.mainContext.undoManager = nil;
+    self.rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    self.rootContext.persistentStoreCoordinator = self.storeCoordinator;
+    self.rootContext.undoManager = nil;
 
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(handleContextDidSaveNotification:)
-                                                 name:NSManagedObjectContextDidSaveNotification
-                                               object:nil];
+    self.mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    self.mainContext.parentContext = self.rootContext;
+    self.mainContext.undoManager = nil;
 }
 
 #pragma mark - Notification handle
 
-- (void)handleContextDidSaveNotification:(NSNotification *)notif
+- (void)rootContextChanged:(NSNotification *)notif
 {
     NSManagedObjectContext *moc = self.mainContext;
-    if (notif.object != moc) {
+    // Only interested in merging from root context into main context.
+    if (notif.object == self.rootContext) {
         [moc performBlock:^(){
             [moc mergeChangesFromContextDidSaveNotification:notif];
         }];

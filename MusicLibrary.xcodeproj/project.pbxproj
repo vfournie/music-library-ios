@@ -14,7 +14,7 @@
 		B74759641858A1540060E1CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759631858A1540060E1CC /* main.m */; };
 		B74759681858A1540060E1CC /* VFEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759671858A1540060E1CC /* VFEAppDelegate.m */; };
 		B747596B1858A1540060E1CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B74759691858A1540060E1CC /* Main.storyboard */; };
-		B747596E1858A1540060E1CC /* VFEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B747596D1858A1540060E1CC /* VFEViewController.m */; };
+		B747596E1858A1540060E1CC /* VFEArtistsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B747596D1858A1540060E1CC /* VFEArtistsListViewController.m */; };
 		B74759701858A1540060E1CC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B747596F1858A1540060E1CC /* Images.xcassets */; };
 		B74759771858A1540060E1CC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74759761858A1540060E1CC /* XCTest.framework */; };
 		B74759781858A1540060E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74759571858A1540060E1CC /* Foundation.framework */; };
@@ -30,6 +30,9 @@
 		B74759A11858A9D70060E1CC /* VFEBaseObject.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759A01858A9D70060E1CC /* VFEBaseObject.m */; };
 		B74759A71858C5230060E1CC /* VFEModelImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759A61858C5230060E1CC /* VFEModelImportOperation.m */; };
 		B74759AC1858CC070060E1CC /* NSString+CSV.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759AB1858CC070060E1CC /* NSString+CSV.m */; };
+		B74759B01859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759AF1859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m */; };
+		B74759B31859B91A0060E1CC /* artists.csv in Resources */ = {isa = PBXBuildFile; fileRef = B74759B11859B91A0060E1CC /* artists.csv */; };
+		B74759B41859B91A0060E1CC /* songs.csv in Resources */ = {isa = PBXBuildFile; fileRef = B74759B21859B91A0060E1CC /* songs.csv */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,8 +57,8 @@
 		B74759661858A1540060E1CC /* VFEAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VFEAppDelegate.h; sourceTree = "<group>"; };
 		B74759671858A1540060E1CC /* VFEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VFEAppDelegate.m; sourceTree = "<group>"; };
 		B747596A1858A1540060E1CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B747596C1858A1540060E1CC /* VFEViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VFEViewController.h; sourceTree = "<group>"; };
-		B747596D1858A1540060E1CC /* VFEViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VFEViewController.m; sourceTree = "<group>"; };
+		B747596C1858A1540060E1CC /* VFEArtistsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VFEArtistsListViewController.h; sourceTree = "<group>"; };
+		B747596D1858A1540060E1CC /* VFEArtistsListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VFEArtistsListViewController.m; sourceTree = "<group>"; };
 		B747596F1858A1540060E1CC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B74759751858A1540060E1CC /* MusicLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74759761858A1540060E1CC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -80,6 +83,10 @@
 		B74759A91858CB590060E1CC /* VFEImportableObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VFEImportableObject.h; sourceTree = "<group>"; };
 		B74759AA1858CC070060E1CC /* NSString+CSV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+CSV.h"; sourceTree = "<group>"; };
 		B74759AB1858CC070060E1CC /* NSString+CSV.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+CSV.m"; sourceTree = "<group>"; };
+		B74759AE1859B15F0060E1CC /* VFEFetchedResultsTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VFEFetchedResultsTableDataSource.h; sourceTree = "<group>"; };
+		B74759AF1859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VFEFetchedResultsTableDataSource.m; sourceTree = "<group>"; };
+		B74759B11859B91A0060E1CC /* artists.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = artists.csv; sourceTree = "<group>"; };
+		B74759B21859B91A0060E1CC /* songs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = songs.csv; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,8 +154,8 @@
 				B74759661858A1540060E1CC /* VFEAppDelegate.h */,
 				B74759671858A1540060E1CC /* VFEAppDelegate.m */,
 				B74759691858A1540060E1CC /* Main.storyboard */,
-				B747596C1858A1540060E1CC /* VFEViewController.h */,
-				B747596D1858A1540060E1CC /* VFEViewController.m */,
+				B747596C1858A1540060E1CC /* VFEArtistsListViewController.h */,
+				B747596D1858A1540060E1CC /* VFEArtistsListViewController.m */,
 				B747596F1858A1540060E1CC /* Images.xcassets */,
 				B747595E1858A1540060E1CC /* Supporting Files */,
 			);
@@ -158,6 +165,8 @@
 		B747595E1858A1540060E1CC /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				B74759B11859B91A0060E1CC /* artists.csv */,
+				B74759B21859B91A0060E1CC /* songs.csv */,
 				B747595F1858A1540060E1CC /* MusicLibrary-Info.plist */,
 				B74759601858A1540060E1CC /* InfoPlist.strings */,
 				B74759631858A1540060E1CC /* main.m */,
@@ -209,6 +218,8 @@
 				B747599B1858A7270060E1CC /* VFEModelManager.m */,
 				B74759A51858C5230060E1CC /* VFEModelImportOperation.h */,
 				B74759A61858C5230060E1CC /* VFEModelImportOperation.m */,
+				B74759AE1859B15F0060E1CC /* VFEFetchedResultsTableDataSource.h */,
+				B74759AF1859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m */,
 			);
 			name = CoreData;
 			sourceTree = "<group>";
@@ -302,6 +313,8 @@
 				B74759701858A1540060E1CC /* Images.xcassets in Resources */,
 				B74759621858A1540060E1CC /* InfoPlist.strings in Resources */,
 				B747596B1858A1540060E1CC /* Main.storyboard in Resources */,
+				B74759B41859B91A0060E1CC /* songs.csv in Resources */,
+				B74759B31859B91A0060E1CC /* artists.csv in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -322,10 +335,11 @@
 			files = (
 				B74759951858A4B50060E1CC /* VFESong.m in Sources */,
 				B747599C1858A7270060E1CC /* VFEModelManager.m in Sources */,
-				B747596E1858A1540060E1CC /* VFEViewController.m in Sources */,
+				B747596E1858A1540060E1CC /* VFEArtistsListViewController.m in Sources */,
 				B74759681858A1540060E1CC /* VFEAppDelegate.m in Sources */,
 				B74759641858A1540060E1CC /* main.m in Sources */,
 				B74759921858A4B50060E1CC /* VFEAlbum.m in Sources */,
+				B74759B01859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m in Sources */,
 				B74759A71858C5230060E1CC /* VFEModelImportOperation.m in Sources */,
 				B74759AC1858CC070060E1CC /* NSString+CSV.m in Sources */,
 				B747598F1858A1990060E1CC /* MusicLibrary.xcdatamodeld in Sources */,
@@ -395,6 +409,9 @@
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_EXPLICIT_OWNERSHIP_TYPE = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_REPEATED_USE_OF_WEAK = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -460,6 +477,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicLibrary/MusicLibrary-Prefix.pch";
 				INFOPLIST_FILE = "MusicLibrary/MusicLibrary-Info.plist";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wno-unused-parameter",
+					"-Wno-sign-compare",
+					"-Warc-repeated-use-of-weak",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -473,6 +497,13 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MusicLibrary/MusicLibrary-Prefix.pch";
 				INFOPLIST_FILE = "MusicLibrary/MusicLibrary-Info.plist";
+				OTHER_CFLAGS = (
+					"-Wall",
+					"-Wextra",
+					"-Wno-unused-parameter",
+					"-Wno-sign-compare",
+					"-Warc-repeated-use-of-weak",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

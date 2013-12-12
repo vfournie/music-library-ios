@@ -1,21 +1,107 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4451" systemVersion="13A461" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="12F45" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="nwO-gQ-weE">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3676"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
-        <!--class Prefix:identifier View Controller-->
-        <scene sceneID="ufC-wZ-h7g">
+        <!--Navigation Controller-->
+        <scene sceneID="UDU-gV-hMU">
             <objects>
-                <viewController id="vXZ-lx-hvc" customClass="VFEViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                <navigationController definesPresentationContext="YES" id="nwO-gQ-weE" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="iyY-Lq-Ct2">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="ua4-zY-Z9L" kind="relationship" relationship="rootViewController" id="ga7-BS-Iz1"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OBx-dp-zDF" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-523" y="203"/>
+        </scene>
+        <!--Artists List View Controller - Artists-->
+        <scene sceneID="yBh-ID-rNu">
+            <objects>
+                <viewController storyboardIdentifier="VFEArtistsListViewController" id="ua4-zY-Z9L" customClass="VFEArtistsListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Kcm-h6-yZp"/>
+                        <viewControllerLayoutGuide type="bottom" id="98n-5R-7rQ"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="qN3-Vd-bt1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="5aF-gi-TJD">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="524"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistCell" id="MBE-a9-6sY">
+                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MBE-a9-6sY" id="dI0-9Y-xvb">
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="delegate" destination="ua4-zY-Z9L" id="QpP-mT-uvD"/>
+                                </connections>
+                            </tableView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C04-Tj-CTb">
+                                <rect key="frame" x="0.0" y="524" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem enabled="NO" title="Cancel" id="8Pn-QC-iGo">
+                                        <connections>
+                                            <action selector="cancelImport:" destination="ua4-zY-Z9L" id="zFd-Of-qQr"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Gy3-nU-f1i"/>
+                                    <barButtonItem style="plain" id="jnQ-Z0-d9X">
+                                        <progressView key="customView" opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" progressViewStyle="bar" id="5XM-br-rXs">
+                                            <rect key="frame" x="87" y="21" width="146" height="3"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        </progressView>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="OQV-Bf-iGi"/>
+                                    <barButtonItem title="Import" id="VJU-7g-tgv">
+                                        <connections>
+                                            <action selector="startImport:" destination="ua4-zY-Z9L" id="1kg-qQ-YHX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="5aF-gi-TJD" secondAttribute="trailing" id="7wW-ih-BX7"/>
+                            <constraint firstItem="5aF-gi-TJD" firstAttribute="leading" secondItem="C04-Tj-CTb" secondAttribute="leading" id="MCv-tY-IpW"/>
+                            <constraint firstAttribute="bottom" secondItem="C04-Tj-CTb" secondAttribute="bottom" id="MLL-Vc-ICy"/>
+                            <constraint firstItem="5aF-gi-TJD" firstAttribute="top" secondItem="qN3-Vd-bt1" secondAttribute="top" id="ZPf-Iy-VZ6"/>
+                            <constraint firstItem="C04-Tj-CTb" firstAttribute="trailing" secondItem="5aF-gi-TJD" secondAttribute="trailing" id="hbq-PQ-qr9"/>
+                            <constraint firstItem="C04-Tj-CTb" firstAttribute="top" secondItem="5aF-gi-TJD" secondAttribute="bottom" id="kDz-73-rB5"/>
+                            <constraint firstItem="5aF-gi-TJD" firstAttribute="leading" secondItem="qN3-Vd-bt1" secondAttribute="leading" id="pcz-o6-4Ou"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Artists" id="6tS-G4-0On">
+                        <barButtonItem key="rightBarButtonItem" title="Refresh" id="c0O-De-EV1">
+                            <connections>
+                                <action selector="refresh:" destination="ua4-zY-Z9L" id="Haj-HW-Ax3"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cancelButton" destination="8Pn-QC-iGo" id="ka1-K7-oXE"/>
+                        <outlet property="importButton" destination="VJU-7g-tgv" id="lJE-9f-dNR"/>
+                        <outlet property="progressView" destination="5XM-br-rXs" id="Ia2-GU-bdQ"/>
+                        <outlet property="tableView" destination="5aF-gi-TJD" id="Uhn-Db-eXE"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WTL-3p-WdU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="-22" y="203"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
