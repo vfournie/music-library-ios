@@ -18,7 +18,6 @@ static const NSInteger ImportProgressGranularity = 250;
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
 @property (nonatomic, copy) NSString *fileName;
-@property (nonatomic, copy) VFEModelImportOperationProgress progressCallback;
 @property (nonatomic, strong) Class modelClass;
 
 @end
@@ -26,13 +25,11 @@ static const NSInteger ImportProgressGranularity = 250;
 @implementation VFEModelImportOperation
 
 - (id)initWithFileName:(NSString *)fileName
-      progressCallback:(VFEModelImportOperationProgress)progressCallback
             modelClass:(Class<VFEImportableObject>)modelClass
 {
     self = [super init];
     if (self) {
         _fileName = [fileName copy];
-        _progressCallback = [progressCallback copy];
         _modelClass = modelClass;
     }
     return self;

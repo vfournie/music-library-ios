@@ -29,12 +29,15 @@
     [[VFEModelManager sharedManager] deleteDB];
 
     self.operationQueue = [[NSOperationQueue alloc] init];
+    self.operationQueue.name = @"Import queue";
 
     NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[VFEArtist entityName]];
     fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
-    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
-                                                                                               managedObjectContext:[VFEModelManager sharedManager].mainContext sectionNameKeyPath:nil
-                                                                                                          cacheName:nil];
+    NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc]
+                                                            initWithFetchRequest:fetchRequest
+                                                            managedObjectContext:[VFEModelManager sharedManager].mainContext
+                                                            sectionNameKeyPath:nil
+                                                            cacheName:nil];
     UITableView *tableView = self.tableView;
     self.dataSource = [[VFEFetchedResultsTableDataSource alloc] initWithTableView:tableView
                                                          fetchedResultsController:fetchedResultsController
@@ -56,22 +59,23 @@
 
     NSString *fileName = [[NSBundle mainBundle] pathForResource:@"artists" ofType:@"csv"];
     VFEModelImportOperation *operation = [[VFEModelImportOperation alloc] initWithFileName:fileName
-                                                                          progressCallback:^(float progress) {
-                                                                              [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                                                                                  self.progressView.progress = progress;
-
-                                                                                  if (progress == 1.0f) {
-                                                                                      double delayInSeconds = 0.5;
-                                                                                      dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-                                                                                      dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-                                                                                          self.importButton.enabled = YES;
-                                                                                          self.cancelButton.enabled = NO;
-                                                                                          self.progressView.progress = 0.0f;
-                                                                                      });
-                                                                                  }
-                                                                               }];
-                                                                          }
                                                                                 modelClass:[VFEArtist class]];
+    operation.progressCallback = ^(float progress) {
+        [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            self.progressView.progress = progress;
+
+            if (progress == 1.0f) {
+                double delayInSeconds = 0.5;
+                dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+                dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
+                    self.importButton.enabled = YES;
+                    self.cancelButton.enabled = NO;
+                    self.progressView.progress = 0.0f;
+                });
+            }
+        }];
+    };
+
     [self.operationQueue addOperation:operation];
 }
 

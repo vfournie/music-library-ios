@@ -45,8 +45,10 @@
 - (void)performFetch
 {
     NSError *error;
+
     BOOL success = [self.fetchedResultsController performFetch:&error];
     NSLog( @"fetchedObjects count : %d", [self.fetchedResultsController.fetchedObjects count]);
+
     if (success == NO) {
         NSLog(@"Unable to perform fetch : %@", error);
     }
