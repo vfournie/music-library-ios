@@ -19,6 +19,15 @@
 
 @end
 
+@interface VFEModelManagerImpl_NestedContexts : VFEModelManager
+
+@end
+
+@interface VFEModelManagerImpl_IndependentContexts : VFEModelManager
+
+@end
+
+
 @implementation VFEModelManager
 
 + (instancetype)sharedManager
@@ -26,7 +35,7 @@
     static VFEModelManager *sharedManager = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        sharedManager = [[VFEModelManager alloc] init];
+        sharedManager = [[VFEModelManagerImpl_NestedContexts alloc] init];
     });
     return sharedManager;
 }
@@ -49,16 +58,19 @@
     return self;
 }
 
-- (void)dealloc
+
+- (NSManagedObjectContext *)createContextFromRootContext
 {
+    return [self createContextFromParentContext:self.rootContext];
+}
+
+- (NSManagedObjectContext *)createContextFromMainContext
+{
+    return [self createContextFromParentContext:self.mainContext];
 }
 
 - (void)saveRootContext
 {
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(rootContextChanged:)
-//                                                 name:NSManagedObjectContextDidSaveNotification
-//                                               object:self.rootContext];
     [self.rootContext performBlock:^{
         NSError *error = nil;
 
@@ -66,12 +78,23 @@
         if (success == NO) {
             NSLog(@"Unable to save the root context : %@", error);
         }
-
-//        [[NSNotificationCenter defaultCenter] removeObserver:self
-//                                                        name:NSManagedObjectContextDidSaveNotification
-//                                                      object:self.rootContext];
-        
     }];
+}
+
+- (BOOL)saveContext:(NSManagedObjectContext *)context error:(NSError *__autoreleasing *)error
+{
+    __block BOOL success;
+
+    [context performBlockAndWait:^{
+        success = [context save:error];
+        if (success) {
+            [context reset];
+        }
+    }];
+    if (success) {
+        [self saveRootContext];
+    }
+    return success;
 }
 
 - (void)deleteDB
@@ -83,7 +106,6 @@
         [self.rootContext reset];
     }];
 
-    // effectively delete the database
     NSError *error;
     if(![[NSFileManager defaultManager] removeItemAtPath:self.storeURL.path error:&error]) {
         NSLog(@"Unable to delete the store : %@", error);
@@ -110,12 +132,84 @@
         NSLog(@"error: %@", error);
     }
 
+    [self initializeContexts];
+}
+
+- (void)initializeContexts
+{
+    @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:[NSString stringWithFormat:@"%s must be overridden in a subclass", __PRETTY_FUNCTION__]
+                                 userInfo:nil];
+}
+
+#pragma mark - Private methods
+
+- (NSManagedObjectContext *)createContextFromParentContext:(NSManagedObjectContext *)parentContext
+{
+    NSManagedObjectContext *context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    context.parentContext = parentContext;
+    context.undoManager = nil;
+
+    return context;
+}
+
+- (NSURL *)applicationDocumentsDirectory
+{
+    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+@end
+
+
+#pragma mark - VFEModelManagerImpl_IndependentContexts
+
+@implementation VFEModelManagerImpl_NestedContexts
+
+- (void)initializeContexts
+{
     self.rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
     self.rootContext.persistentStoreCoordinator = self.storeCoordinator;
     self.rootContext.undoManager = nil;
 
     self.mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
     self.mainContext.parentContext = self.rootContext;
+    self.mainContext.undoManager = nil;
+}
+
+@end
+
+
+#pragma mark - VFEModelManagerImpl_IndependentContexts
+
+@implementation VFEModelManagerImpl_IndependentContexts
+
+- (id)initWithStoreURL:(NSURL *)storeURL modelURL:(NSURL *)modelURL
+{
+    self = [super initWithStoreURL:storeURL modelURL:modelURL];
+    if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(rootContextChanged:)
+                                                     name:NSManagedObjectContextDidSaveNotification
+                                                   object:nil];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:NSManagedObjectContextDidSaveNotification
+                                                  object:nil];
+}
+
+- (void)initializeContexts
+{
+    self.rootContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
+    self.rootContext.persistentStoreCoordinator = self.storeCoordinator;
+    self.rootContext.undoManager = nil;
+
+    self.mainContext = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    self.mainContext.persistentStoreCoordinator = self.storeCoordinator;
     self.mainContext.undoManager = nil;
 }
 
@@ -130,13 +224,6 @@
             [moc mergeChangesFromContextDidSaveNotification:notif];
         }];
     }
-}
-
-#pragma mark - Private methods
-
-- (NSURL *)applicationDocumentsDirectory
-{
-    return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
 }
 
 @end

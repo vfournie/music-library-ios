@@ -16,7 +16,12 @@
 
 + (instancetype)sharedManager;
 
+- (NSManagedObjectContext *)createContextFromRootContext;
+- (NSManagedObjectContext *)createContextFromMainContext;
+
 - (void)saveRootContext;
+- (BOOL)saveContext:(NSManagedObjectContext *)context error:(NSError **)error;
+
 - (void)deleteDB;
 
 @end

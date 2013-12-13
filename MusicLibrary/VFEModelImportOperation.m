@@ -37,11 +37,7 @@ static const NSInteger ImportProgressGranularity = 250;
 
 - (void)main
 {
-    // Create the local context in the 'main' method to create it on the correct thread
-//    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSConfinementConcurrencyType];
-    self.context = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSPrivateQueueConcurrencyType];
-    self.context.parentContext = [VFEModelManager sharedManager].rootContext;
-    self.context.undoManager = nil;
+    self.context = [[VFEModelManager sharedManager] createContextFromRootContext];
 
     [self.context performBlock:^{
         [self import];
@@ -50,15 +46,12 @@ static const NSInteger ImportProgressGranularity = 250;
 
 - (void)saveContext
 {
-    [self.context performBlockAndWait:^{
-        NSError *error;
-        [self.context save:&error];
-        if (error) {
-            NSLog(@"Unable to save context : %@", error);
-        }
-        [self.context reset];
-    }];
-    [[VFEModelManager sharedManager] saveRootContext];
+    NSError *error;
+    BOOL success = [[VFEModelManager sharedManager] saveContext:self.context error:&error];
+
+    if (success == NO) {
+        NSLog(@"Unable to save context : %@", error);
+    }
 }
 
 - (void)import
