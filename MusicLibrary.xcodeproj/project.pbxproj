@@ -14,7 +14,7 @@
 		B74759641858A1540060E1CC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759631858A1540060E1CC /* main.m */; };
 		B74759681858A1540060E1CC /* VFEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759671858A1540060E1CC /* VFEAppDelegate.m */; };
 		B747596B1858A1540060E1CC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B74759691858A1540060E1CC /* Main.storyboard */; };
-		B747596E1858A1540060E1CC /* VFEArtistsListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B747596D1858A1540060E1CC /* VFEArtistsListViewController.m */; };
+		B747596E1858A1540060E1CC /* VFEArtistListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B747596D1858A1540060E1CC /* VFEArtistListViewController.m */; };
 		B74759701858A1540060E1CC /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B747596F1858A1540060E1CC /* Images.xcassets */; };
 		B74759771858A1540060E1CC /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74759761858A1540060E1CC /* XCTest.framework */; };
 		B74759781858A1540060E1CC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B74759571858A1540060E1CC /* Foundation.framework */; };
@@ -59,8 +59,8 @@
 		B74759661858A1540060E1CC /* VFEAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VFEAppDelegate.h; sourceTree = "<group>"; };
 		B74759671858A1540060E1CC /* VFEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VFEAppDelegate.m; sourceTree = "<group>"; };
 		B747596A1858A1540060E1CC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		B747596C1858A1540060E1CC /* VFEArtistsListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VFEArtistsListViewController.h; sourceTree = "<group>"; };
-		B747596D1858A1540060E1CC /* VFEArtistsListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VFEArtistsListViewController.m; sourceTree = "<group>"; };
+		B747596C1858A1540060E1CC /* VFEArtistListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VFEArtistListViewController.h; sourceTree = "<group>"; };
+		B747596D1858A1540060E1CC /* VFEArtistListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VFEArtistListViewController.m; sourceTree = "<group>"; };
 		B747596F1858A1540060E1CC /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		B74759751858A1540060E1CC /* MusicLibraryTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MusicLibraryTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B74759761858A1540060E1CC /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -160,8 +160,8 @@
 				B74759661858A1540060E1CC /* VFEAppDelegate.h */,
 				B74759671858A1540060E1CC /* VFEAppDelegate.m */,
 				B74759691858A1540060E1CC /* Main.storyboard */,
-				B747596C1858A1540060E1CC /* VFEArtistsListViewController.h */,
-				B747596D1858A1540060E1CC /* VFEArtistsListViewController.m */,
+				B747596C1858A1540060E1CC /* VFEArtistListViewController.h */,
+				B747596D1858A1540060E1CC /* VFEArtistListViewController.m */,
 				B7B6C3EB185B1BDA00464FD8 /* VFEAlbumListViewController.h */,
 				B7B6C3EC185B1BDA00464FD8 /* VFEAlbumListViewController.m */,
 				B7B6C3EE185B32A100464FD8 /* VFESongListViewController.h */,
@@ -346,7 +346,7 @@
 				B74759951858A4B50060E1CC /* VFESong.m in Sources */,
 				B7B6C3F0185B32A100464FD8 /* VFESongListViewController.m in Sources */,
 				B747599C1858A7270060E1CC /* VFEModelManager.m in Sources */,
-				B747596E1858A1540060E1CC /* VFEArtistsListViewController.m in Sources */,
+				B747596E1858A1540060E1CC /* VFEArtistListViewController.m in Sources */,
 				B74759681858A1540060E1CC /* VFEAppDelegate.m in Sources */,
 				B7B6C3ED185B1BDA00464FD8 /* VFEAlbumListViewController.m in Sources */,
 				B74759641858A1540060E1CC /* main.m in Sources */,

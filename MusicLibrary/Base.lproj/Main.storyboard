@@ -19,10 +19,10 @@
             </objects>
             <point key="canvasLocation" x="-523" y="203"/>
         </scene>
-        <!--Artists List View Controller - Artists-->
+        <!--Artist List View Controller - Artists-->
         <scene sceneID="yBh-ID-rNu">
             <objects>
-                <viewController storyboardIdentifier="VFEArtistsListViewController" id="ua4-zY-Z9L" customClass="VFEArtistsListViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="VFEArtistsListViewController" id="ua4-zY-Z9L" customClass="VFEArtistListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Kcm-h6-yZp"/>
                         <viewControllerLayoutGuide type="bottom" id="98n-5R-7rQ"/>
@@ -37,7 +37,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ArtistCell" id="MBE-a9-6sY">
-                                        <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                        <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MBE-a9-6sY" id="dI0-9Y-xvb">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
@@ -116,7 +116,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="AlbumCell" id="PzN-he-tLa">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PzN-he-tLa" id="OY8-ht-gZo">
                                     <rect key="frame" x="0.0" y="0.0" width="287" height="43"/>
@@ -148,7 +148,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
                             <tableViewCell contentMode="scaleToFill" selectionStyle="default" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SongCell" id="XTA-QN-jCS">
-                                <rect key="frame" x="0.0" y="86" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="22" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XTA-QN-jCS" id="Ifq-9w-FAF">
                                     <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>

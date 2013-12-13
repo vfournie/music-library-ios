@@ -1,12 +1,12 @@
 //
-//  VFEArtistsListViewController.m
+//  VFEArtistListViewController.m
 //  MusicLibrary
 //
 //  Created by Vincent Fournié on 12/11/13.
 //  Copyright (c) 2013 VFE. All rights reserved.
 //
 
-#import "VFEArtistsListViewController.h"
+#import "VFEArtistListViewController.h"
 #import <CoreData/CoreData.h>
 #import "VFEArtist.h"
 #import "VFEFetchedResultsTableDataSource.h"
@@ -14,14 +14,14 @@
 #import "VFEModelImportOperation.h"
 #import "VFEAlbumListViewController.h"
 
-@interface VFEArtistsListViewController () <UITableViewDelegate>
+@interface VFEArtistListViewController () <UITableViewDelegate>
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) VFEFetchedResultsTableDataSource *dataSource;
 
 @end
 
-@implementation VFEArtistsListViewController
+@implementation VFEArtistListViewController
 
 - (void)viewDidLoad
 {

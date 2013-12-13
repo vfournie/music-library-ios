@@ -1,5 +1,5 @@
 //
-//  VFEArtistsListViewController.h
+//  VFEArtistListViewController.h
 //  MusicLibrary
 //
 //  Created by Vincent Fournié on 12/11/13.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface VFEArtistsListViewController : UIViewController
+@interface VFEArtistListViewController : UIViewController
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *cancelButton;

@@ -57,16 +57,16 @@ static const NSInteger ImportProgressGranularity = 250;
 - (void)importArtists
 {
     NSString *fileName = [[NSBundle mainBundle] pathForResource:@"artists" ofType:@"csv"];
-    [self importFileName:fileName modelClass:[VFEArtist class]];
+    [self importFileName:fileName forEntityClass:[VFEArtist class]];
 }
 
 - (void)importSongs
 {
     NSString *fileName = [[NSBundle mainBundle] pathForResource:@"songs" ofType:@"csv"];
-    [self importFileName:fileName modelClass:[VFESong class]];
+    [self importFileName:fileName forEntityClass:[VFESong class]];
 }
 
-- (void)importFileName:(NSString *)fileName modelClass:(Class<VFEImportableObject>)modelClass
+- (void)importFileName:(NSString *)fileName forEntityClass:(Class<VFEImportableObject>)modelClass
 {
     NSString *fileContents = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:NULL];
     NSArray *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
