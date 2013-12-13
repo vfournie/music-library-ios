@@ -33,6 +33,8 @@
 		B74759B01859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = B74759AF1859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m */; };
 		B74759B31859B91A0060E1CC /* artists.csv in Resources */ = {isa = PBXBuildFile; fileRef = B74759B11859B91A0060E1CC /* artists.csv */; };
 		B74759B41859B91A0060E1CC /* songs.csv in Resources */ = {isa = PBXBuildFile; fileRef = B74759B21859B91A0060E1CC /* songs.csv */; };
+		B7B6C3ED185B1BDA00464FD8 /* VFEAlbumListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B6C3EC185B1BDA00464FD8 /* VFEAlbumListViewController.m */; };
+		B7B6C3F0185B32A100464FD8 /* VFESongListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B7B6C3EF185B32A100464FD8 /* VFESongListViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -87,6 +89,10 @@
 		B74759AF1859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VFEFetchedResultsTableDataSource.m; sourceTree = "<group>"; };
 		B74759B11859B91A0060E1CC /* artists.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = artists.csv; sourceTree = "<group>"; };
 		B74759B21859B91A0060E1CC /* songs.csv */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = songs.csv; sourceTree = "<group>"; };
+		B7B6C3EB185B1BDA00464FD8 /* VFEAlbumListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VFEAlbumListViewController.h; sourceTree = "<group>"; };
+		B7B6C3EC185B1BDA00464FD8 /* VFEAlbumListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VFEAlbumListViewController.m; sourceTree = "<group>"; };
+		B7B6C3EE185B32A100464FD8 /* VFESongListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VFESongListViewController.h; sourceTree = "<group>"; };
+		B7B6C3EF185B32A100464FD8 /* VFESongListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VFESongListViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,6 +162,10 @@
 				B74759691858A1540060E1CC /* Main.storyboard */,
 				B747596C1858A1540060E1CC /* VFEArtistsListViewController.h */,
 				B747596D1858A1540060E1CC /* VFEArtistsListViewController.m */,
+				B7B6C3EB185B1BDA00464FD8 /* VFEAlbumListViewController.h */,
+				B7B6C3EC185B1BDA00464FD8 /* VFEAlbumListViewController.m */,
+				B7B6C3EE185B32A100464FD8 /* VFESongListViewController.h */,
+				B7B6C3EF185B32A100464FD8 /* VFESongListViewController.m */,
 				B747596F1858A1540060E1CC /* Images.xcassets */,
 				B747595E1858A1540060E1CC /* Supporting Files */,
 			);
@@ -334,9 +344,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				B74759951858A4B50060E1CC /* VFESong.m in Sources */,
+				B7B6C3F0185B32A100464FD8 /* VFESongListViewController.m in Sources */,
 				B747599C1858A7270060E1CC /* VFEModelManager.m in Sources */,
 				B747596E1858A1540060E1CC /* VFEArtistsListViewController.m in Sources */,
 				B74759681858A1540060E1CC /* VFEAppDelegate.m in Sources */,
+				B7B6C3ED185B1BDA00464FD8 /* VFEAlbumListViewController.m in Sources */,
 				B74759641858A1540060E1CC /* main.m in Sources */,
 				B74759921858A4B50060E1CC /* VFEAlbum.m in Sources */,
 				B74759B01859B15F0060E1CC /* VFEFetchedResultsTableDataSource.m in Sources */,

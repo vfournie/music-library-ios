@@ -12,6 +12,11 @@
 @interface VFEBaseObject : NSManagedObject <VFEImportableObject>
 
 + (NSString *)entityName;
+
 + (instancetype)insertNewObjectInManagedObjectContext:(NSManagedObjectContext *)moc;
+
++ (instancetype)findOrCreateEntityName:(NSString *)entityName
+                         forIdentifier:(NSString *)name
+                             inContext:(NSManagedObjectContext *)moc;
 
 @end

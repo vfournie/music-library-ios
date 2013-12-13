@@ -7,12 +7,27 @@
 //
 
 #import "VFEArtist.h"
+#import "VFEAlbum.h"
 
 @implementation VFEArtist
 
 @dynamic name;
 @dynamic albums;
 @dynamic songs;
+
+- (NSArray *)sortedAlbums
+{
+    return [self.albums sortedArrayUsingDescriptors:@[
+                                                      [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                                     ]];
+}
+
+- (NSArray *)sortedSongs
+{
+    return [self.songs sortedArrayUsingDescriptors:@[
+                                                      [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                                    ]];
+}
 
 + (NSString *)entityName
 {
@@ -23,31 +38,22 @@
 {
     NSString *name = components[0];
 
-    VFEArtist *artist = [self findOrCreateWithName:name inContext:moc];
+    VFEArtist *artist = [self findOrCreateEntityName:[VFEArtist entityName]
+                                       forIdentifier:name
+                                           inContext:moc];
     artist.name = name;
-}
 
-+ (instancetype)findOrCreateWithName:(NSString *)name inContext:(NSManagedObjectContext *)moc
-{
-    __block VFEArtist *artist;
-
-    [moc performBlockAndWait:^{
-        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[self entityName]];
-        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
-        fetchRequest.fetchLimit = 1;
-
-        NSError *error = nil;
-        artist = [[moc executeFetchRequest:fetchRequest error:&error] lastObject];
-        if (error) {
-            NSLog(@"Unable to fetch request : %@", error);
+    int count = components.count;
+    if (count >= 1 ) {
+        for (int i=1 ; i < count ; i++) {
+            NSString *albumName = components[i];
+            VFEAlbum *album = [self findOrCreateEntityName:[VFEAlbum entityName]
+                                             forIdentifier:albumName
+                                                 inContext:moc];
+            album.name = albumName;
+            album.artist = artist;
         }
-        if (artist == nil) {
-            artist = [NSEntityDescription insertNewObjectForEntityForName:[self entityName]
-                                                   inManagedObjectContext:moc];
-        }
-    }];
-
-    return artist;
+    }
 }
 
 @end

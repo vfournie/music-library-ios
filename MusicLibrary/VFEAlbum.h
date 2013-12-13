@@ -15,8 +15,9 @@
 @interface VFEAlbum : VFEBaseObject
 
 @property (nonatomic, strong) NSString *name;
-@property (nonatomic, strong) NSDate *year;
 @property (nonatomic, strong) VFEArtist *artist;
 @property (nonatomic, strong) NSSet *songs;
+
+- (NSArray *)sortedSongs;
 
 @end

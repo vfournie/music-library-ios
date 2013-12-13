@@ -15,7 +15,4 @@ typedef void(^VFEModelImportOperationProgress)(float progress);
 
 @property (nonatomic, copy) VFEModelImportOperationProgress progressCallback;
 
-- (id)initWithFileName:(NSString *)fileName
-            modelClass:(Class<VFEImportableObject>)modelClass;
-
 @end

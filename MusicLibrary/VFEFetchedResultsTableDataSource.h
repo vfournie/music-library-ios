@@ -14,10 +14,13 @@ typedef void (^VFEConfigureCellBlock)(UITableViewCell *cell, id item);
 
 @interface VFEFetchedResultsTableDataSource : NSObject <UITableViewDataSource>
 
+@property (nonatomic, copy) VFEConfigureCellBlock configureCellBlock;
+
 - (id)initWithTableView:(UITableView *)tableView fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
-         cellIdentifier:(NSString *)cellIdentifier
-     configureCellBlock:(VFEConfigureCellBlock)configureCellBlock;
+         cellIdentifier:(NSString *)cellIdentifier;
 
 - (void)performFetch;
+
+- (id)itemAtIndexPath:(NSIndexPath *)path;
 
 @end

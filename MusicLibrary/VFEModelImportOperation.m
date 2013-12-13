@@ -17,23 +17,10 @@ static const NSInteger ImportProgressGranularity = 250;
 @interface VFEModelImportOperation ()
 
 @property (nonatomic, strong) NSManagedObjectContext *context;
-@property (nonatomic, copy) NSString *fileName;
-@property (nonatomic, strong) Class modelClass;
 
 @end
 
 @implementation VFEModelImportOperation
-
-- (id)initWithFileName:(NSString *)fileName
-            modelClass:(Class<VFEImportableObject>)modelClass
-{
-    self = [super init];
-    if (self) {
-        _fileName = [fileName copy];
-        _modelClass = modelClass;
-    }
-    return self;
-}
 
 - (void)main
 {
@@ -58,7 +45,30 @@ static const NSInteger ImportProgressGranularity = 250;
 {
     NSDate *beginDate = [NSDate date];
 
-    NSString *fileContents = [NSString stringWithContentsOfFile:self.fileName encoding:NSUTF8StringEncoding error:NULL];
+    [self importArtists];
+    [self importSongs];
+
+    self.progressCallback(1);
+    [self saveContext];
+
+    NSLog(@"Imported done in %f s", ABS([beginDate timeIntervalSinceNow]));
+}
+
+- (void)importArtists
+{
+    NSString *fileName = [[NSBundle mainBundle] pathForResource:@"artists" ofType:@"csv"];
+    [self importFileName:fileName modelClass:[VFEArtist class]];
+}
+
+- (void)importSongs
+{
+    NSString *fileName = [[NSBundle mainBundle] pathForResource:@"songs" ofType:@"csv"];
+    [self importFileName:fileName modelClass:[VFESong class]];
+}
+
+- (void)importFileName:(NSString *)fileName modelClass:(Class<VFEImportableObject>)modelClass
+{
+    NSString *fileContents = [NSString stringWithContentsOfFile:fileName encoding:NSUTF8StringEncoding error:NULL];
     NSArray *lines = [fileContents componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]];
     NSInteger count = lines.count;
     NSInteger progressGranularity = ImportProgressGranularity;
@@ -80,7 +90,7 @@ static const NSInteger ImportProgressGranularity = 250;
 
         NSArray *components = [line vfe_csvComponents];
 
-        [self.modelClass importCSVComponents:components intoContext:self.context];
+        [modelClass importCSVComponents:components intoContext:self.context];
 
         if (idx % progressGranularity == 0) {
             self.progressCallback(idx / (float)count);
@@ -89,10 +99,6 @@ static const NSInteger ImportProgressGranularity = 250;
             [self saveContext];
         }
     }];
-    self.progressCallback(1);
-    [self saveContext];
-
-    NSLog(@"Imported done in %f s", ABS([beginDate timeIntervalSinceNow]));
 }
 
 @end

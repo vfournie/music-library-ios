@@ -12,8 +12,9 @@
 
 + (NSString *)entityName
 {
-    // Must overwrite in subclasses
-    return @"";
+    @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:[NSString stringWithFormat:@"%s must be overridden in a subclass", __PRETTY_FUNCTION__]
+                                 userInfo:nil];
 }
 
 + (instancetype)insertNewObjectInManagedObjectContext:(NSManagedObjectContext *)moc
@@ -24,8 +25,34 @@
 
 + (void)importCSVComponents:(NSArray *)components intoContext:(NSManagedObjectContext *)moc
 {
-    // Must overwrite in subclasses
-    NSLog(@"Importing...");
+    @throw [NSException exceptionWithName:NSInvalidArgumentException
+                                   reason:[NSString stringWithFormat:@"%s must be overridden in a subclass", __PRETTY_FUNCTION__]
+                                 userInfo:nil];
+}
+
++ (instancetype)findOrCreateEntityName:(NSString *)entityName
+                         forIdentifier:(NSString *)name
+                             inContext:(NSManagedObjectContext *)moc
+{
+    __block VFEBaseObject *object;
+
+    [moc performBlockAndWait:^{
+        NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:entityName];
+        fetchRequest.predicate = [NSPredicate predicateWithFormat:@"name = %@", name];
+        fetchRequest.fetchLimit = 1;
+
+        NSError *error = nil;
+        object = [[moc executeFetchRequest:fetchRequest error:&error] lastObject];
+        if (error) {
+            NSLog(@"Unable to fetch request : %@", error);
+        }
+        if (object == nil) {
+            object = [NSEntityDescription insertNewObjectForEntityForName:entityName
+                                                   inManagedObjectContext:moc];
+        }
+    }];
+
+    return object;
 }
 
 @end

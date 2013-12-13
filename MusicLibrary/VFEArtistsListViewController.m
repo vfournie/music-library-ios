@@ -12,6 +12,7 @@
 #import "VFEFetchedResultsTableDataSource.h"
 #import "VFEModelManager.h"
 #import "VFEModelImportOperation.h"
+#import "VFEAlbumListViewController.h"
 
 @interface VFEArtistsListViewController () <UITableViewDelegate>
 
@@ -31,7 +32,7 @@
     self.operationQueue = [[NSOperationQueue alloc] init];
     self.operationQueue.name = @"Import queue";
 
-    NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[VFEArtist entityName]];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:[VFEArtist entityName]];
     fetchRequest.sortDescriptors = @[ [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES] ];
     NSFetchedResultsController *fetchedResultsController = [[NSFetchedResultsController alloc]
                                                             initWithFetchRequest:fetchRequest
@@ -41,12 +42,39 @@
     UITableView *tableView = self.tableView;
     self.dataSource = [[VFEFetchedResultsTableDataSource alloc] initWithTableView:tableView
                                                          fetchedResultsController:fetchedResultsController
-                                                                   cellIdentifier:@"ArtistCell"
-                                                               configureCellBlock:^(UITableViewCell *cell, VFEArtist *item) {
-                                                                   cell.textLabel.text = item.name;
-                                                               }];
+                                                                   cellIdentifier:@"ArtistCell"];
+    self.dataSource.configureCellBlock = ^(UITableViewCell *cell, VFEArtist *artist) {
+        cell.textLabel.text = artist.name;
+        if (artist.albums.count > 0) {
+            cell.userInteractionEnabled = YES;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        }
+        else {
+            cell.userInteractionEnabled = NO;
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+    };
 
     tableView.dataSource = self.dataSource;
+}
+
+#pragma mark - UITableViewDelegate
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - Segue
+
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
+{
+    if ([[segue identifier] isEqualToString:@"pushAlbums"]) {
+        NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
+        VFEArtist *artist = [self.dataSource itemAtIndexPath:indexPath];
+        VFEAlbumListViewController *destVC = [segue destinationViewController];
+        destVC.albums = [artist sortedAlbums];
+    }
 }
 
 #pragma mark - Actions
@@ -57,9 +85,7 @@
     self.cancelButton.enabled = YES;
     self.importButton.enabled = NO;
 
-    NSString *fileName = [[NSBundle mainBundle] pathForResource:@"artists" ofType:@"csv"];
-    VFEModelImportOperation *operation = [[VFEModelImportOperation alloc] initWithFileName:fileName
-                                                                                modelClass:[VFEArtist class]];
+    VFEModelImportOperation *operation = [[VFEModelImportOperation alloc] init];
     operation.progressCallback = ^(float progress) {
         [[NSOperationQueue mainQueue] addOperationWithBlock:^{
             self.progressView.progress = progress;

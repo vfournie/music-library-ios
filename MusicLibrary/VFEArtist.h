@@ -16,4 +16,7 @@
 @property (nonatomic, strong) NSSet *albums;
 @property (nonatomic, strong) NSSet *songs;
 
+- (NSArray *)sortedAlbums;
+- (NSArray *)sortedSongs;
+
 @end

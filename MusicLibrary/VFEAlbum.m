@@ -11,9 +11,15 @@
 @implementation VFEAlbum
 
 @dynamic name;
-@dynamic year;
 @dynamic artist;
 @dynamic songs;
+
+- (NSArray *)sortedSongs
+{
+    return [self.songs sortedArrayUsingDescriptors:@[
+                                                     [NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]
+                                                    ]];
+}
 
 + (NSString *)entityName
 {

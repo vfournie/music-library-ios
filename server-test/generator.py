@@ -4,7 +4,7 @@ import csv
 
 class Generator(object):
     @staticmethod
-    def generate_data(nb_artists=10000, nb_albums=2, nb_songs=4):
+    def generate_data(nb_artists=1000, nb_albums=2, nb_songs=4):
         artist_filename = "artists.csv"
         song_filename = "songs.csv"
         with open(artist_filename, 'w') as f_a, open(song_filename, 'w') as f_s:

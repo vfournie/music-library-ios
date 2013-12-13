@@ -13,7 +13,6 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, copy) VFEConfigureCellBlock configureCellBlock;
 @property (nonatomic, copy) NSString *cellIdentifier;
 
 @end
@@ -22,14 +21,12 @@
 
 - (id)initWithTableView:(UITableView *)tableView fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
          cellIdentifier:(NSString *)cellIdentifier
-     configureCellBlock:(VFEConfigureCellBlock)configureCellBlock
 {
     self = [super init];
     if(self) {
         _tableView = tableView;
         _fetchedResultsController = fetchedResultsController;
         _cellIdentifier = [cellIdentifier copy];
-        _configureCellBlock = [configureCellBlock copy];
         [self setup];
     }
     return self;
@@ -52,6 +49,11 @@
     if (success == NO) {
         NSLog(@"Unable to perform fetch : %@", error);
     }
+}
+
+- (id)itemAtIndexPath:(NSIndexPath *)path
+{
+    return [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:path.row inSection:path.section]];
 }
 
 #pragma mark - UITableViewDataSource
@@ -144,11 +146,6 @@
 }
 
 #pragma mark - Private
-
-- (id)itemAtIndexPath:(NSIndexPath *)path
-{
-    return [self.fetchedResultsController objectAtIndexPath:[NSIndexPath indexPathForRow:path.row inSection:path.section]];
-}
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)path
 {
